@@ -9,11 +9,15 @@
       content="a minimal photographic calendar arranged by date."
     />
     <meta name="theme-color" content="#b8b8b8" />
-    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="./favicon.ico?v=2" sizes="any" />
+    <link rel="icon" href="./favicon.svg?v=2" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="./favicon.png?v=2" />
+    <link rel="shortcut icon" href="./favicon.ico?v=2" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body class="is-landing">
     <a class="site-title" href="#" data-home>fragile calendar</a>
+    <button class="index-toggle" type="button" data-index-toggle>index</button>
 
     <aside class="note" aria-live="polite">
       <time data-note-date></time>
@@ -48,11 +52,14 @@
     </nav>
 
     <main class="stage" aria-live="polite" data-stage></main>
+    <section class="index-view" aria-label="image index" data-index-view></section>
 
     <script src="entries.js"></script>
     <script>
       const body = document.body;
       const home = document.querySelector("[data-home]");
+      const indexToggle = document.querySelector("[data-index-toggle]");
+      const indexView = document.querySelector("[data-index-view]");
       const calendar = document.querySelector(".calendar");
       const days = document.querySelector("[data-days]");
       const stage = document.querySelector("[data-stage]");
@@ -152,6 +159,7 @@
 
       function renderEntries() {
         stage.innerHTML = "";
+        indexView.innerHTML = "";
 
         contentDates.forEach((date) => {
           const note = notes[date];
@@ -160,11 +168,26 @@
           section.dataset.entry = date;
 
           note.images.forEach((src, index) => {
+            const imageId = `image-${date}-${index + 1}`;
             const image = document.createElement("img");
+            image.id = imageId;
             image.src = src;
             image.alt = "";
             image.className = `image-${String.fromCharCode(97 + index)}`;
             section.append(image);
+
+            const indexButton = document.createElement("button");
+            indexButton.className = "index-thumb";
+            indexButton.type = "button";
+            indexButton.dataset.date = date;
+            indexButton.dataset.imageTarget = imageId;
+            indexButton.setAttribute("aria-label", note.date);
+
+            const thumb = document.createElement("img");
+            thumb.src = src;
+            thumb.alt = "";
+            indexButton.append(thumb);
+            indexView.append(indexButton);
           });
 
           stage.append(section);
@@ -206,6 +229,7 @@
       }
 
       function setEntry(date) {
+        body.classList.remove("is-index");
         updateEntryState(date);
 
         if (!date) {
@@ -250,6 +274,7 @@
         activeDate = undefined;
         body.classList.add("is-landing");
         body.classList.remove("has-entry");
+        body.classList.remove("is-index");
         noteDate.textContent = "";
         noteText.innerHTML = "";
         renderCalendar();
@@ -279,6 +304,23 @@
       home.addEventListener("click", (event) => {
         event.preventDefault();
         setLanding();
+      });
+
+      indexToggle.addEventListener("click", () => {
+        body.classList.toggle("is-index");
+      });
+
+      indexView.addEventListener("click", (event) => {
+        const thumb = event.target.closest("[data-date]");
+
+        if (thumb) {
+          body.classList.remove("is-index");
+          updateEntryState(thumb.dataset.date);
+          document.getElementById(thumb.dataset.imageTarget)?.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        }
       });
 
       renderEntries();

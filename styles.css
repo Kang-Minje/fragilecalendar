@@ -22,6 +22,8 @@
 }
 
 html {
+  overflow-y: scroll;
+  scrollbar-gutter: stable;
   scroll-behavior: smooth;
 }
 
@@ -63,6 +65,7 @@ img {
   display: block;
   width: 100%;
   height: auto;
+  scroll-margin-top: 20px;
 }
 
 .site-title {
@@ -70,6 +73,29 @@ img {
   top: 27px;
   left: 28px;
   z-index: 30;
+}
+
+.site-title:hover,
+.site-title:focus-visible {
+  text-decoration: underline;
+  text-decoration-thickness: var(--hairline);
+  text-underline-offset: 2px;
+}
+
+.index-toggle {
+  position: fixed;
+  bottom: 27px;
+  left: 28px;
+  z-index: 35;
+  cursor: pointer;
+}
+
+.index-toggle:hover,
+.index-toggle:focus-visible,
+.is-index .index-toggle {
+  text-decoration: underline;
+  text-decoration-thickness: var(--hairline);
+  text-underline-offset: 2px;
 }
 
 .calendar {
@@ -167,7 +193,7 @@ img {
 
 .has-entry-day:hover .day-number,
 .has-entry-day.is-active .day-number {
-  border-bottom: var(--hairline) solid currentColor;
+  box-shadow: 0 var(--hairline) 0 currentColor;
   line-height: 0.95;
 }
 
@@ -285,9 +311,52 @@ img {
   display: none;
 }
 
+.index-view {
+  position: fixed;
+  inset: 0;
+  z-index: 15;
+  display: none;
+  grid-template-columns: repeat(auto-fill, 8vw);
+  gap: 20px;
+  align-items: start;
+  align-content: start;
+  padding: 120px 28px 80px;
+  overflow: auto;
+  background: var(--white);
+}
+
+.is-index .index-view {
+  display: grid;
+}
+
+.is-index .stage {
+  visibility: hidden;
+}
+
+.is-index .calendar,
+.is-index .note {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.index-thumb {
+  width: 8vw;
+  cursor: pointer;
+}
+
+.index-thumb img {
+  width: 8vw;
+  height: auto;
+}
+
 @media (max-width: 900px) {
   .site-title {
     top: 18px;
+    left: 16px;
+  }
+
+  .index-toggle {
+    bottom: 18px;
     left: 16px;
   }
 
@@ -358,5 +427,16 @@ img {
     max-height: none;
     margin-left: auto;
     margin-right: auto;
+  }
+
+  .index-view {
+    grid-template-columns: repeat(auto-fill, 18vw);
+    gap: 14px;
+    padding: 90px 16px 70px;
+  }
+
+  .index-thumb,
+  .index-thumb img {
+    width: 18vw;
   }
 }
