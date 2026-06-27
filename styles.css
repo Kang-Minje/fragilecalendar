@@ -1,0 +1,362 @@
+@font-face {
+  font-family: "fragile times";
+  src: url("./Times New Roman.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --black: #000000;
+  --white: #ffffff;
+  --text: 11.5pt;
+  --cell: 22px;
+  --col-gap: 24px;
+  --row-gap: 24px;
+  --calendar-height: 274px;
+  --hairline: 0.5px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  background: var(--white);
+  color: var(--black);
+  font-family: "fragile times", "Times New Roman", Times, serif;
+  font-size: var(--text);
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.15;
+}
+
+a,
+button {
+  color: var(--black);
+  font: inherit;
+  font-style: normal;
+  font-weight: 400;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  display: block;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  cursor: default;
+}
+
+img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.site-title {
+  position: fixed;
+  top: 27px;
+  left: 28px;
+  z-index: 30;
+}
+
+.calendar {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  z-index: 20;
+  width: calc((var(--cell) * 7) + (var(--col-gap) * 6));
+  height: var(--calendar-height);
+  transform: translate(-50%, -50%);
+  text-align: left;
+}
+
+.month {
+  display: grid;
+  gap: 2px;
+  justify-content: center;
+  margin: 0 auto 20px;
+  text-align: center;
+}
+
+.month-row {
+  display: grid;
+  grid-template-columns: var(--cell) minmax(48px, max-content) var(--cell);
+  column-gap: 8px;
+  align-items: center;
+  justify-content: center;
+}
+
+.month-arrow {
+  width: var(--cell);
+  line-height: 1;
+  text-align: center;
+  cursor: pointer;
+}
+
+.weekdays,
+.days {
+  display: grid;
+  grid-template-columns: repeat(7, var(--cell));
+  column-gap: var(--col-gap);
+  row-gap: var(--row-gap);
+  align-items: center;
+  justify-content: center;
+}
+
+.weekdays {
+  margin-bottom: 25px;
+}
+
+.weekdays span {
+  display: block;
+  width: max-content;
+  margin: 0 auto;
+  border-bottom: var(--hairline) solid currentColor;
+  line-height: 0.95;
+  text-align: center;
+}
+
+.days button,
+.empty-day {
+  position: relative;
+  width: var(--cell);
+  min-height: 1em;
+  text-align: center;
+}
+
+.empty-content-day,
+.empty-content-day:disabled {
+  opacity: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+.is-today::before {
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: var(--black);
+  content: "";
+  transform: translateX(-50%);
+}
+
+.has-entry-day {
+  color: var(--black);
+  cursor: pointer;
+}
+
+.has-entry-day .day-number {
+  color: var(--black);
+}
+
+.has-entry-day:hover .day-number,
+.has-entry-day.is-active .day-number {
+  border-bottom: var(--hairline) solid currentColor;
+  line-height: 0.95;
+}
+
+.note {
+  position: fixed;
+  top: 31px;
+  right: 28px;
+  z-index: 25;
+  width: 320px;
+  text-align: right;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.note time {
+  display: block;
+  margin-bottom: 58px;
+}
+
+.note [data-note-text] {
+  line-height: 1.4;
+}
+
+.note [data-note-text] p {
+  margin: 0;
+}
+
+.note [data-note-text] p + p {
+  margin-top: 8px;
+}
+
+.has-entry .note {
+  opacity: 1;
+}
+
+.stage {
+  min-height: 100vh;
+  padding-bottom: 20vh;
+}
+
+.entry {
+  min-height: 100vh;
+  scroll-margin-top: 0;
+}
+
+.entry-collage {
+  position: relative;
+  width: 100%;
+  min-height: 1460px;
+  margin-bottom: 18vh;
+  padding: 0 0 150px;
+}
+
+.entry-collage img {
+  position: absolute;
+  object-fit: cover;
+}
+
+.entry-collage .image-a {
+  top: 0;
+  left: 17.8vw;
+  width: 31.6vw;
+}
+
+.entry-collage .image-b {
+  top: 0;
+  left: 51vw;
+  width: 28.8vw;
+}
+
+.entry-collage .image-c {
+  top: 700px;
+  left: 17.8vw;
+  width: 31.6vw;
+}
+
+.entry-collage .image-d {
+  top: 700px;
+  left: 51vw;
+  width: 28.8vw;
+}
+
+.entry-columns-2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  width: min(56vw, calc(100vw - 17.8vw - 390px));
+  min-height: 100vh;
+  margin: 0 0 18vh 17.8vw;
+  align-content: start;
+}
+
+.entry-columns-2 img {
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+}
+
+.entry-columns-1 {
+  min-height: 100vh;
+  margin-bottom: 18vh;
+}
+
+.entry-columns-1 img {
+  width: min(56vw, calc(100vw - 17.8vw - 390px));
+  max-height: 86vh;
+  margin-left: 17.8vw;
+  object-fit: contain;
+}
+
+.entry-columns-1 img + img {
+  margin-top: 20px;
+}
+
+.is-landing .stage {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .site-title {
+    top: 18px;
+    left: 16px;
+  }
+
+  .note {
+    position: fixed;
+    top: 18px;
+    right: 16px;
+    width: min(42vw, 220px);
+    padding: 0;
+    text-align: right;
+  }
+
+  .note time {
+    margin-bottom: 18px;
+  }
+
+  .has-entry .note {
+    opacity: 1;
+  }
+
+  .calendar {
+    width: calc((var(--cell) * 7) + (18px * 6));
+    height: 255px;
+  }
+
+  .weekdays,
+  .days {
+    column-gap: 18px;
+    row-gap: 21px;
+  }
+
+  .entry-collage {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    width: 95vw;
+    min-height: 0;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 125px 0 8px;
+  }
+
+  .entry-collage img,
+  .entry-collage .image-a,
+  .entry-collage .image-b,
+  .entry-collage .image-c,
+  .entry-collage .image-d {
+    position: static;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+  }
+
+  .entry-columns-2 {
+    width: 95vw;
+    margin: 0 0 18vh;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0;
+  }
+
+  .entry-columns-2 img {
+    width: 100%;
+  }
+
+  .entry-columns-1 img {
+    width: 95vw;
+    max-height: none;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}

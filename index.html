@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>fragile calendar</title>
+    <meta
+      name="description"
+      content="a minimal photographic calendar arranged by date."
+    />
+    <meta name="theme-color" content="#b8b8b8" />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="is-landing">
+    <a class="site-title" href="#" data-home>fragile calendar</a>
+
+    <aside class="note" aria-live="polite">
+      <time data-note-date></time>
+      <div data-note-text></div>
+    </aside>
+
+    <nav class="calendar" aria-label="calendar">
+      <div class="month">
+        <span data-year>2026</span>
+        <div class="month-row" aria-live="polite">
+          <button class="month-arrow" type="button" data-month-prev aria-label="previous month">
+            &lt;
+          </button>
+          <span data-month>June</span>
+          <button class="month-arrow" type="button" data-month-next aria-label="next month">
+            &gt;
+          </button>
+        </div>
+      </div>
+
+      <div class="weekdays" aria-hidden="true">
+        <span>Sun</span>
+        <span>Mon</span>
+        <span>Tue</span>
+        <span>Wed</span>
+        <span>Thu</span>
+        <span>Fri</span>
+        <span>Sat</span>
+      </div>
+
+      <div class="days" data-days></div>
+    </nav>
+
+    <main class="stage" aria-live="polite" data-stage></main>
+
+    <script src="entries.js"></script>
+    <script>
+      const body = document.body;
+      const home = document.querySelector("[data-home]");
+      const calendar = document.querySelector(".calendar");
+      const days = document.querySelector("[data-days]");
+      const stage = document.querySelector("[data-stage]");
+      const monthLabel = document.querySelector("[data-month]");
+      const yearLabel = document.querySelector("[data-year]");
+      const noteDate = document.querySelector("[data-note-date]");
+      const noteText = document.querySelector("[data-note-text]");
+      let activeDate;
+      let calendarDate = new Date(2026, 5, 1);
+      let observer;
+
+      const monthNames = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+      ];
+
+      const rawEntries = Array.isArray(globalThis.FRAGILE_ENTRIES)
+        ? globalThis.FRAGILE_ENTRIES
+        : [];
+      const notes = Object.fromEntries(
+        rawEntries.map((entry) => [
+          entry.date,
+          {
+            date: formatDate(entry.date),
+            text: entry.note || "",
+            columns: entry.columns === 1 ? 1 : 2,
+            images: Array.isArray(entry.images) ? entry.images : [],
+          },
+        ]),
+      );
+      const contentDates = Object.keys(notes).sort();
+      const today = new Date();
+      const todayKey = dateKey(today.getFullYear(), today.getMonth(), today.getDate());
+
+      function dateKey(year, month, day) {
+        return `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+      }
+
+      function formatDate(date) {
+        const [year, month, day] = date.split("-").map(Number);
+        return `${day} ${monthNames[month - 1]} ${year}`;
+      }
+
+      function renderCalendar() {
+        const year = calendarDate.getFullYear();
+        const month = calendarDate.getMonth();
+        const firstDay = new Date(year, month, 1).getDay();
+        const dayCount = new Date(year, month + 1, 0).getDate();
+        const cellCount = Math.ceil((firstDay + dayCount) / 7) * 7;
+
+        yearLabel.textContent = year;
+        monthLabel.textContent = monthNames[month];
+        days.innerHTML = "";
+
+        for (let index = 0; index < cellCount; index += 1) {
+          const day = index - firstDay + 1;
+
+          if (day < 1 || day > dayCount) {
+            const empty = document.createElement("span");
+            empty.className = "empty-day";
+            days.append(empty);
+            continue;
+          }
+
+          const key = dateKey(year, month, day);
+          const button = document.createElement("button");
+          button.type = "button";
+          button.dataset.date = key;
+          button.disabled = !notes[key];
+          button.setAttribute("aria-hidden", notes[key] ? "false" : "true");
+          button.tabIndex = notes[key] ? 0 : -1;
+          button.classList.toggle("empty-content-day", !notes[key]);
+          button.classList.toggle("has-entry-day", Boolean(notes[key]));
+          button.classList.toggle("is-active", key === activeDate);
+          button.classList.toggle("is-today", key === todayKey);
+
+          if (notes[key]) {
+            const dayText = document.createElement("span");
+            dayText.className = "day-number";
+            dayText.textContent = day;
+            button.append(dayText);
+          }
+
+          days.append(button);
+        }
+      }
+
+      function renderEntries() {
+        stage.innerHTML = "";
+
+        contentDates.forEach((date) => {
+          const note = notes[date];
+          const section = document.createElement("section");
+          section.className = `entry entry-columns-${note.columns}`;
+          section.dataset.entry = date;
+
+          note.images.forEach((src, index) => {
+            const image = document.createElement("img");
+            image.src = src;
+            image.alt = "";
+            image.className = `image-${String.fromCharCode(97 + index)}`;
+            section.append(image);
+          });
+
+          stage.append(section);
+        });
+      }
+
+      function updateEntryState(date) {
+        const note = notes[date];
+        activeDate = note ? date : undefined;
+
+        body.classList.toggle("is-landing", !note);
+        body.classList.toggle("has-entry", Boolean(note));
+
+        noteDate.textContent = note ? note.date : "";
+        noteText.innerHTML = "";
+
+        if (note?.text) {
+          note.text
+            .split(/\n\s*\n/)
+            .filter(Boolean)
+            .forEach((paragraph) => {
+              const item = document.createElement("p");
+              item.textContent = paragraph.trim();
+              noteText.append(item);
+            });
+        }
+
+        if (note) {
+          const [year, month] = date.split("-").map(Number);
+          if (
+            calendarDate.getFullYear() !== year ||
+            calendarDate.getMonth() !== month - 1
+          ) {
+            calendarDate = new Date(year, month - 1, 1);
+          }
+        }
+
+        renderCalendar();
+      }
+
+      function setEntry(date) {
+        updateEntryState(date);
+
+        if (!date) {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+          return;
+        }
+
+        document.querySelector(`[data-entry="${date}"]`)?.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }
+
+      function syncEntryFromScroll() {
+        if (observer) {
+          observer.disconnect();
+        }
+
+        observer = new IntersectionObserver(
+          (items) => {
+            const visible = items
+              .filter((item) => item.isIntersecting)
+              .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+            if (visible?.target?.dataset.entry) {
+              updateEntryState(visible.target.dataset.entry);
+            }
+          },
+          {
+            root: null,
+            rootMargin: "-42% 0px -42% 0px",
+            threshold: [0, 0.2, 0.5, 0.8, 1],
+          },
+        );
+
+        document.querySelectorAll("[data-entry]").forEach((entry) => {
+          observer.observe(entry);
+        });
+      }
+
+      function setLanding() {
+        activeDate = undefined;
+        body.classList.add("is-landing");
+        body.classList.remove("has-entry");
+        noteDate.textContent = "";
+        noteText.innerHTML = "";
+        renderCalendar();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      calendar.addEventListener("click", (event) => {
+        const monthPrev = event.target.closest("[data-month-prev]");
+        const monthNext = event.target.closest("[data-month-next]");
+        const day = event.target.closest("[data-date]");
+
+        if (monthPrev || monthNext) {
+          calendarDate = new Date(
+            calendarDate.getFullYear(),
+            calendarDate.getMonth() + (monthNext ? 1 : -1),
+            1,
+          );
+          renderCalendar();
+          return;
+        }
+
+        if (day && notes[day.dataset.date]) {
+          setEntry(day.dataset.date);
+        }
+      });
+
+      home.addEventListener("click", (event) => {
+        event.preventDefault();
+        setLanding();
+      });
+
+      renderEntries();
+      renderCalendar();
+      syncEntryFromScroll();
+    </script>
+  </body>
+</html>
