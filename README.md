@@ -16,7 +16,7 @@ globalThis.FRAGILE_ENTRIES = [
   {
     date: "2026-06-14",
     note: "short memo for this day.",
-    columns: 2,
+    columns: 1,
     images: [
       "public/images/2026-06-14_01.jpg",
       "public/images/2026-06-14_02.jpg",
@@ -25,4 +25,4 @@ globalThis.FRAGILE_ENTRIES = [
 ];
 ```
 
-`columns: 1`이면 1열, `columns: 2`이면 2열입니다.
+현재 레이아웃은 모든 이미지를 1열로 보여줍니다.

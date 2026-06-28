@@ -5,21 +5,74 @@
 //   {
 //     date: "2026-06-14",
 //     note: "short memo for this day.",
-//     columns: 2,
+//     columns: 1,
 //     images: [
 //       "public/images/2026-06-14_01.jpg",
 //       "public/images/2026-06-14_02.jpg",
 //     ],
 //   },
-//   {
-//     date: "2026-06-29",
-//     note: "one-column image day.",
-//     columns: 1,
-//     images: ["public/images/2026-06-29_01.jpg"],
-//   },
 // ];
 
 globalThis.FRAGILE_ENTRIES = [
+  {
+    date: "2026-03-31",
+    note: "",
+    columns: 1,
+    images: ["public/images/2026-03-31_01.jpg"],
+  },
+  {
+    date: "2026-04-12",
+    note:
+      "My time with Jihoon was like... cold. We had a strange arrangement: twenty planned get-togethers. April 12th was the first. Before the next one came, we were already dodging each other.",
+    columns: 1,
+    images: [
+      "public/images/2026-04-12_01.jpg",
+      "public/images/2026-04-12_02.jpg",
+      "public/images/2026-04-12_03.jpg",
+      "public/images/2026-04-12_04.jpg",
+      "public/images/2026-04-12_05.jpg",
+      "public/images/2026-04-12_06.jpg",
+      "public/images/2026-04-12_07.jpg",
+      "public/images/2026-04-12_08.jpg",
+      "public/images/2026-04-12_09.jpg",
+    ],
+  },
+  {
+    date: "2026-04-13",
+    note: "",
+    columns: 1,
+    images: [
+      "public/images/2026-04-13_01.jpg",
+      "public/images/2026-04-13_02.jpg",
+    ],
+  },
+  {
+    date: "2026-05-18",
+    note:
+      "As a photographer, I like looking at young men. They have a calm but intense energy. It feels like breathing my own melancholy into their clay. Whan-hee was perfect clay.",
+    columns: 1,
+    images: [
+      "public/images/2026-05-18_01.jpg",
+      "public/images/2026-05-18_02.jpg",
+      "public/images/2026-05-18_03.jpg",
+      "public/images/2026-05-18_04.jpg",
+      "public/images/2026-05-18_05.jpg",
+    ],
+  },
+  {
+    date: "2026-05-23",
+    note:
+      "A harsh, tight close-up actually keeps you from seeing him closely. It doesn’t bring you in near as the camera's distance should. Instead, it pushes you back, forcing you to look at the subject itself, not the action.",
+    columns: 1,
+    images: [
+      "public/images/2026-05-23_01.jpg",
+      "public/images/2026-05-23_02.jpg",
+      "public/images/2026-05-23_03.jpg",
+      "public/images/2026-05-23_04.jpg",
+      "public/images/2026-05-23_05.jpg",
+      "public/images/2026-05-23_06.jpg",
+    ],
+  },
   {
     date: "2026-06-19",
     note:
@@ -32,8 +85,7 @@ globalThis.FRAGILE_ENTRIES = [
   },
   {
     date: "2026-06-22",
-    note:
-      "Canadian federal government officially launched a comprehensive new nuclear energy strategy aimed at significantly expanding the nation's power grid over the next 15 years.\n\nAnnounced by Energy Minister Tim Hodgson in Newmarket, Ontario, the initiative outlines a roadmap to construct at least 10 new large-scale nuclear reactors as part of a broader federal objective to double national electricity capacity by 2050.",
+    note: "",
     columns: 1,
     images: [
       "public/images/2026-06-22_01.jpg",
@@ -52,8 +104,7 @@ globalThis.FRAGILE_ENTRIES = [
   },
   {
     date: "2026-06-27",
-    note:
-      "In Venezuela, a humanitarian emergency unfolded following two powerful earthquakes that struck the northern coast on the previous Wednesday.\n\nBy June 27, the confirmed death toll had risen to at least 920, with over 3,300 people injured and more than 50,000 missing. Residents in affected areas, particularly in La Guaira state, expressed growing frustration, taking the search for survivors into their own hands while citing a scarcity of government-led rescue operations despite official assurances of a robust response.",
+    note: "",
     columns: 1,
     images: ["public/images/2026-06-27_01.jpg"],
   },

@@ -65,6 +65,8 @@
       const stage = document.querySelector("[data-stage]");
       const monthLabel = document.querySelector("[data-month]");
       const yearLabel = document.querySelector("[data-year]");
+      const monthPrevButton = document.querySelector("[data-month-prev]");
+      const monthNextButton = document.querySelector("[data-month-next]");
       const noteDate = document.querySelector("[data-note-date]");
       const noteText = document.querySelector("[data-note-text]");
       let activeDate;
@@ -95,12 +97,15 @@
           {
             date: formatDate(entry.date),
             text: entry.note || "",
-            columns: entry.columns === 1 ? 1 : 2,
+            columns: 1,
             images: Array.isArray(entry.images) ? entry.images : [],
           },
         ]),
       );
       const contentDates = Object.keys(notes).sort();
+      const contentMonths = [
+        ...new Set(contentDates.map((date) => date.slice(0, 7))),
+      ].sort();
       const today = new Date();
       const todayKey = dateKey(today.getFullYear(), today.getMonth(), today.getDate());
 
@@ -116,12 +121,19 @@
       function renderCalendar() {
         const year = calendarDate.getFullYear();
         const month = calendarDate.getMonth();
+        const currentMonth = `${year}-${String(month + 1).padStart(2, "0")}`;
         const firstDay = new Date(year, month, 1).getDay();
         const dayCount = new Date(year, month + 1, 0).getDate();
         const cellCount = Math.ceil((firstDay + dayCount) / 7) * 7;
+        const monthIndex = contentMonths.indexOf(currentMonth);
 
         yearLabel.textContent = year;
         monthLabel.textContent = monthNames[month];
+        monthPrevButton.classList.toggle("is-hidden", monthIndex <= 0);
+        monthNextButton.classList.toggle(
+          "is-hidden",
+          monthIndex === -1 || monthIndex >= contentMonths.length - 1,
+        );
         days.innerHTML = "";
 
         for (let index = 0; index < cellCount; index += 1) {
@@ -166,6 +178,11 @@
           const section = document.createElement("section");
           section.className = `entry entry-columns-${note.columns}`;
           section.dataset.entry = date;
+          const indexRow = document.createElement("div");
+          indexRow.className = "index-row";
+
+          const indexImages = document.createElement("div");
+          indexImages.className = "index-images";
 
           note.images.forEach((src, index) => {
             const imageId = `image-${date}-${index + 1}`;
@@ -187,9 +204,11 @@
             thumb.src = src;
             thumb.alt = "";
             indexButton.append(thumb);
-            indexView.append(indexButton);
+            indexImages.append(indexButton);
           });
 
+          indexRow.append(indexImages);
+          indexView.append(indexRow);
           stage.append(section);
         });
       }
@@ -287,12 +306,19 @@
         const day = event.target.closest("[data-date]");
 
         if (monthPrev || monthNext) {
-          calendarDate = new Date(
-            calendarDate.getFullYear(),
-            calendarDate.getMonth() + (monthNext ? 1 : -1),
-            1,
-          );
-          renderCalendar();
+          const currentMonth = `${calendarDate.getFullYear()}-${String(
+            calendarDate.getMonth() + 1,
+          ).padStart(2, "0")}`;
+          const monthIndex = contentMonths.indexOf(currentMonth);
+          const targetMonth =
+            contentMonths[monthIndex + (monthNext ? 1 : -1)];
+
+          if (targetMonth) {
+            const [year, month] = targetMonth.split("-").map(Number);
+            calendarDate = new Date(year, month - 1, 1);
+            renderCalendar();
+          }
+
           return;
         }
 
