@@ -97,7 +97,7 @@
           {
             date: formatDate(entry.date),
             text: entry.note || "",
-            columns: 1,
+            columns: entry.columns || 1,
             images: Array.isArray(entry.images) ? entry.images : [],
           },
         ]),

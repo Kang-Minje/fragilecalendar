@@ -126,6 +126,7 @@ img {
 }
 
 .month-arrow {
+  position: relative;
   width: var(--cell);
   line-height: 1;
   text-align: center;
@@ -215,7 +216,7 @@ img {
 
 .note time {
   display: block;
-  margin-bottom: 58px;
+  margin-bottom: 18px;
 }
 
 .note [data-note-text] {
@@ -281,9 +282,12 @@ img {
 }
 
 .entry-columns-2 {
-  width: min(56vw, calc(100vw - 17.8vw - 390px));
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  width: 76vw;
   min-height: 100vh;
-  margin: 0 0 18vh 17.8vw;
+  margin: 0 0 18vh 6vw;
 }
 
 .entry-columns-2 img {
@@ -293,7 +297,22 @@ img {
 }
 
 .entry-columns-2 img + img {
-  margin-top: 20px;
+  margin-top: 0;
+}
+
+.entry-columns-3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  width: 88vw;
+  min-height: 100vh;
+  margin: 0 0 18vh 6vw;
+}
+
+.entry-columns-3 img {
+  width: 100%;
+  max-height: 77.4vh;
+  object-fit: contain;
 }
 
 .entry-columns-1 {
@@ -363,6 +382,10 @@ img {
 }
 
 @media (max-width: 900px) {
+  body {
+    font-size: 10px;
+  }
+
   .site-title {
     top: 18px;
     left: 16px;
@@ -383,7 +406,15 @@ img {
   }
 
   .note time {
-    margin-bottom: 18px;
+    margin-bottom: 8px;
+  }
+
+  .note [data-note-text] {
+    line-height: 1.32;
+  }
+
+  .note [data-note-text] p + p {
+    margin-top: 5px;
   }
 
   .has-entry .note {
@@ -399,6 +430,15 @@ img {
   .days {
     column-gap: 18px;
     row-gap: 21px;
+  }
+
+  .days button::after,
+  .month-arrow::after,
+  .index-toggle::after,
+  .site-title::after {
+    position: absolute;
+    inset: -10px;
+    content: "";
   }
 
   .entry-collage {
@@ -422,6 +462,8 @@ img {
   }
 
   .entry-columns-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
     width: 95vw;
     margin: 0 0 18vh;
     margin-left: auto;
@@ -431,6 +473,20 @@ img {
 
   .entry-columns-2 img {
     width: 100%;
+  }
+
+  .entry-columns-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+    width: 95vw;
+    min-height: 100vh;
+    margin: 0 auto 18vh;
+    padding: 0;
+  }
+
+  .entry-columns-3 img {
+    width: 100%;
+    max-height: none;
   }
 
   .entry-columns-1 img {

@@ -15,6 +15,104 @@
 
 globalThis.FRAGILE_ENTRIES = [
   {
+    date: "2025-12-23",
+    note: "breakfast to hangover",
+    columns: 1,
+    images: [
+      "public/images/new/2025-12-23_01.jpg",
+      "public/images/new/2025-12-23_02.jpg",
+    ],
+  },
+  {
+    date: "2026-01-02",
+    note: "fir st-st ain",
+    columns: 1,
+    images: ["public/images/new/2026-01-02_01.jpg"],
+  },
+  {
+    date: "2026-01-07",
+    note: "obsession or dedication",
+    columns: 1,
+    images: ["public/images/new/2026-01-07_01.jpg"],
+  },
+  {
+    date: "2026-01-08",
+    note: "feet on paint\n\npaint on feet",
+    columns: 1,
+    images: ["public/images/new/2026-01-08_01.jpg"],
+  },
+  {
+    date: "2026-01-10",
+    note: "18",
+    columns: 1,
+    images: ["public/images/new/2026-01-10_01.jpg"],
+  },
+  {
+    date: "2026-01-14",
+    note: "jaeho's comfort",
+    columns: 1,
+    images: [
+      "public/images/new/2026-01-14_01.jpg",
+      "public/images/new/2026-01-14_02.jpg",
+      "public/images/new/2026-01-14_03.jpg",
+    ],
+  },
+  {
+    date: "2026-01-15",
+    note: "two lees",
+    columns: 2,
+    images: [
+      "public/images/new/2026-01-15_01.jpg",
+      "public/images/new/2026-01-15_02.jpg",
+    ],
+  },
+  {
+    date: "2026-01-16",
+    note: "",
+    columns: 1,
+    images: ["public/images/new/2026-01-16_01.jpg"],
+  },
+  {
+    date: "2026-01-18",
+    note: "CLT",
+    columns: 3,
+    images: [
+      "public/images/new/2026-01-18_01.jpg",
+      "public/images/new/2026-01-18_02.jpg",
+      "public/images/new/2026-01-18_03.jpg",
+    ],
+  },
+  {
+    date: "2026-01-21",
+    note: "liv's sister(s)",
+    columns: 1,
+    images: [
+      "public/images/new/2026-01-21_01.jpg",
+      "public/images/new/2026-01-21_02.jpg",
+    ],
+  },
+  {
+    date: "2026-01-24",
+    note: "studio painting\n\nthis could be tiny construction",
+    columns: 1,
+    images: ["public/images/new/2026-01-24_01.jpg"],
+  },
+  {
+    date: "2026-01-26",
+    note: "janus",
+    columns: 2,
+    images: [
+      "public/images/new/2026-01-26_01.jpg",
+      "public/images/new/2026-01-26_02.jpg",
+    ],
+  },
+  {
+    date: "2026-02-23",
+    note: "deadwood",
+    columns: 1,
+    images: ["public/images/new/2026-02-23_01.jpg"],
+  },
+  {
     date: "2026-03-31",
     note: "",
     columns: 1,
