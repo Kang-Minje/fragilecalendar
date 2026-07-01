@@ -382,6 +382,10 @@ img {
 }
 
 @media (max-width: 900px) {
+  :root {
+    --mobile-entry-top: 118px;
+  }
+
   body {
     font-size: 10px;
   }
@@ -461,6 +465,10 @@ img {
     width: 100%;
   }
 
+  .entry-columns-1 {
+    padding-top: var(--mobile-entry-top);
+  }
+
   .entry-columns-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 10px;
@@ -468,7 +476,7 @@ img {
     margin: 0 0 18vh;
     margin-left: auto;
     margin-right: auto;
-    padding: 0;
+    padding: var(--mobile-entry-top) 0 0;
   }
 
   .entry-columns-2 img {
@@ -481,7 +489,7 @@ img {
     width: 95vw;
     min-height: 100vh;
     margin: 0 auto 18vh;
-    padding: 0;
+    padding: var(--mobile-entry-top) 0 0;
   }
 
   .entry-columns-3 img {
