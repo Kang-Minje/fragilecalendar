@@ -15,20 +15,17 @@
   --row-gap: 24px;
   --calendar-height: 274px;
   --hairline: 0.5px;
-  --viewport-height: 100vh;
-  --stage-bottom: 20vh;
-  --entry-bottom: 18vh;
-  --image-max-tall: 86vh;
-  --image-max-short: 77.4vh;
+  --stable-viewport-height: 100vh;
+  --viewport-height: var(--stable-viewport-height);
+  --stage-bottom: calc(var(--stable-viewport-height) * 0.2);
+  --entry-bottom: calc(var(--stable-viewport-height) * 0.18);
+  --image-max-tall: calc(var(--stable-viewport-height) * 0.86);
+  --image-max-short: calc(var(--stable-viewport-height) * 0.774);
 }
 
 @supports (height: 100svh) {
   :root {
-    --viewport-height: 100svh;
-    --stage-bottom: 20svh;
-    --entry-bottom: 18svh;
-    --image-max-tall: 86svh;
-    --image-max-short: 77.4svh;
+    --stable-viewport-height: 100svh;
   }
 }
 
