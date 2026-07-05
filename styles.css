@@ -15,6 +15,21 @@
   --row-gap: 24px;
   --calendar-height: 274px;
   --hairline: 0.5px;
+  --viewport-height: 100vh;
+  --stage-bottom: 20vh;
+  --entry-bottom: 18vh;
+  --image-max-tall: 86vh;
+  --image-max-short: 77.4vh;
+}
+
+@supports (height: 100svh) {
+  :root {
+    --viewport-height: 100svh;
+    --stage-bottom: 20svh;
+    --entry-bottom: 18svh;
+    --image-max-tall: 86svh;
+    --image-max-short: 77.4svh;
+  }
 }
 
 * {
@@ -28,7 +43,7 @@ html {
 }
 
 body {
-  min-height: 100vh;
+  min-height: var(--viewport-height);
   margin: 0;
   background: var(--white);
   color: var(--black);
@@ -236,12 +251,12 @@ img {
 }
 
 .stage {
-  min-height: 100vh;
-  padding-bottom: 20vh;
+  min-height: var(--viewport-height);
+  padding-bottom: var(--stage-bottom);
 }
 
 .entry {
-  min-height: 100vh;
+  min-height: var(--viewport-height);
   scroll-margin-top: 0;
 }
 
@@ -249,7 +264,7 @@ img {
   position: relative;
   width: 100%;
   min-height: 1460px;
-  margin-bottom: 18vh;
+  margin-bottom: var(--entry-bottom);
   padding: 0 0 150px;
 }
 
@@ -286,13 +301,13 @@ img {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 20px;
   width: 76vw;
-  min-height: 100vh;
-  margin: 0 0 18vh 6vw;
+  min-height: var(--viewport-height);
+  margin: 0 0 var(--entry-bottom) 6vw;
 }
 
 .entry-columns-2 img {
   width: 100%;
-  max-height: 86vh;
+  max-height: var(--image-max-tall);
   object-fit: contain;
 }
 
@@ -305,24 +320,24 @@ img {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 16px;
   width: 88vw;
-  min-height: 100vh;
-  margin: 0 0 18vh 6vw;
+  min-height: var(--viewport-height);
+  margin: 0 0 var(--entry-bottom) 6vw;
 }
 
 .entry-columns-3 img {
   width: 100%;
-  max-height: 77.4vh;
+  max-height: var(--image-max-short);
   object-fit: contain;
 }
 
 .entry-columns-1 {
-  min-height: 100vh;
-  margin-bottom: 18vh;
+  min-height: var(--viewport-height);
+  margin-bottom: var(--entry-bottom);
 }
 
 .entry-columns-1 img {
   width: min(56vw, calc(100vw - 17.8vw - 390px));
-  max-height: 86vh;
+  max-height: var(--image-max-tall);
   margin-left: 17.8vw;
   object-fit: contain;
 }
@@ -473,7 +488,7 @@ img {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 10px;
     width: 95vw;
-    margin: 0 0 18vh;
+    margin: 0 0 var(--entry-bottom);
     margin-left: auto;
     margin-right: auto;
     padding: var(--mobile-entry-top) 0 0;
@@ -487,8 +502,8 @@ img {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 10px;
     width: 95vw;
-    min-height: 100vh;
-    margin: 0 auto 18vh;
+    min-height: var(--viewport-height);
+    margin: 0 auto var(--entry-bottom);
     padding: var(--mobile-entry-top) 0 0;
   }
 
