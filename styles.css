@@ -73,7 +73,8 @@ button {
   cursor: default;
 }
 
-img {
+img,
+video {
   display: block;
   width: 100%;
   height: auto;
@@ -265,7 +266,8 @@ img {
   padding: 0 0 150px;
 }
 
-.entry-collage img {
+.entry-collage img,
+.entry-collage video {
   position: absolute;
 }
 
@@ -302,13 +304,17 @@ img {
   margin: 0 0 var(--entry-bottom) 6vw;
 }
 
-.entry-columns-2 img {
+.entry-columns-2 img,
+.entry-columns-2 video {
   width: 100%;
   max-height: var(--image-max-tall);
   object-fit: contain;
 }
 
-.entry-columns-2 img + img {
+.entry-columns-2 img + img,
+.entry-columns-2 img + video,
+.entry-columns-2 video + img,
+.entry-columns-2 video + video {
   margin-top: 0;
 }
 
@@ -321,7 +327,8 @@ img {
   margin: 0 0 var(--entry-bottom) 6vw;
 }
 
-.entry-columns-3 img {
+.entry-columns-3 img,
+.entry-columns-3 video {
   width: 100%;
   max-height: var(--image-max-short);
   object-fit: contain;
@@ -332,14 +339,18 @@ img {
   margin-bottom: var(--entry-bottom);
 }
 
-.entry-columns-1 img {
+.entry-columns-1 img,
+.entry-columns-1 video {
   width: min(56vw, calc(100vw - 17.8vw - 390px));
   max-height: var(--image-max-tall);
   margin-left: 17.8vw;
   object-fit: contain;
 }
 
-.entry-columns-1 img + img {
+.entry-columns-1 img + img,
+.entry-columns-1 img + video,
+.entry-columns-1 video + img,
+.entry-columns-1 video + video {
   margin-top: 20px;
 }
 
@@ -388,7 +399,8 @@ img {
   cursor: pointer;
 }
 
-.index-thumb img {
+.index-thumb img,
+.index-thumb video {
   width: 9.2vw;
   height: auto;
 }
@@ -469,6 +481,7 @@ img {
   }
 
   .entry-collage img,
+  .entry-collage video,
   .entry-collage .image-a,
   .entry-collage .image-b,
   .entry-collage .image-c,
@@ -491,7 +504,8 @@ img {
     padding: var(--mobile-entry-top) 0 0;
   }
 
-  .entry-columns-2 img {
+  .entry-columns-2 img,
+  .entry-columns-2 video {
     width: 100%;
   }
 
@@ -504,12 +518,14 @@ img {
     padding: var(--mobile-entry-top) 0 0;
   }
 
-  .entry-columns-3 img {
+  .entry-columns-3 img,
+  .entry-columns-3 video {
     width: 100%;
     max-height: none;
   }
 
-  .entry-columns-1 img {
+  .entry-columns-1 img,
+  .entry-columns-1 video {
     width: 95vw;
     max-height: none;
     margin-left: auto;
@@ -530,7 +546,8 @@ img {
   }
 
   .index-thumb,
-  .index-thumb img {
+  .index-thumb img,
+  .index-thumb video {
     width: 20.7vw;
   }
 }

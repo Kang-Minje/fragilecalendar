@@ -311,6 +311,12 @@ globalThis.FRAGILE_ENTRIES = [
     images: ["public/images/2026-07-21_01.avif"],
   },
   {
+    date: "2026-07-22",
+    note: "mov",
+    columns: 1,
+    images: ["public/images/2026-07-22_01.mov"],
+  },
+  {
     date: "2026-07-24",
     note: "prayers",
     columns: 1,

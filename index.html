@@ -72,6 +72,7 @@
       let activeDate;
       let calendarDate = new Date(2026, 5, 1);
       let observer;
+      const videoExtensions = new Set(["mov", "mp4", "m4v", "webm"]);
 
       const monthNames = [
         "January",
@@ -106,9 +107,22 @@
       const contentMonths = [
         ...new Set(contentDates.map((date) => date.slice(0, 7))),
       ].sort();
+      setLatestContentMonth();
       const today = new Date();
       const todayKey = dateKey(today.getFullYear(), today.getMonth(), today.getDate());
       let stableViewportWidth = window.innerWidth;
+
+      function setLatestContentMonth() {
+        if (!contentMonths.length) {
+          return;
+        }
+
+        const [latestYear, latestMonth] = contentMonths
+          .at(-1)
+          .split("-")
+          .map(Number);
+        calendarDate = new Date(latestYear, latestMonth - 1, 1);
+      }
 
       function setStableViewportHeight() {
         const viewportHeight = window.visualViewport?.height || window.innerHeight;
@@ -134,6 +148,46 @@
       function formatDate(date) {
         const [year, month, day] = date.split("-").map(Number);
         return `${day} ${monthNames[month - 1]} ${year}`;
+      }
+
+      function mediaType(src) {
+        const extension = src.split(".").pop().toLowerCase();
+        return videoExtensions.has(extension) ? "video" : "image";
+      }
+
+      function createMediaElement(src, options = {}) {
+        const type = mediaType(src);
+        const element = document.createElement(type === "video" ? "video" : "img");
+
+        if (type === "video") {
+          element.src = src;
+          element.muted = true;
+          element.playsInline = true;
+          element.controls = !options.thumbnail;
+          element.preload = options.thumbnail ? "metadata" : "auto";
+
+          if (!options.thumbnail) {
+            element.dataset.autoplayVideo = "";
+          }
+        } else {
+          element.src = src;
+          element.alt = "";
+          element.loading = options.thumbnail ? "lazy" : "eager";
+        }
+
+        return element;
+      }
+
+      function syncVideoPlayback(activeEntry) {
+        document.querySelectorAll("[data-autoplay-video]").forEach((video) => {
+          const shouldPlay = video.closest("[data-entry]")?.dataset.entry === activeEntry;
+
+          if (shouldPlay) {
+            video.play().catch(() => {});
+          } else {
+            video.pause();
+          }
+        });
       }
 
       function renderCalendar() {
@@ -204,12 +258,10 @@
 
           note.images.forEach((src, index) => {
             const imageId = `image-${date}-${index + 1}`;
-            const image = document.createElement("img");
-            image.id = imageId;
-            image.src = src;
-            image.alt = "";
-            image.className = `image-${String.fromCharCode(97 + index)}`;
-            section.append(image);
+            const media = createMediaElement(src);
+            media.id = imageId;
+            media.className = `image-${String.fromCharCode(97 + index)}`;
+            section.append(media);
 
             const indexButton = document.createElement("button");
             indexButton.className = "index-thumb";
@@ -218,9 +270,7 @@
             indexButton.dataset.imageTarget = imageId;
             indexButton.setAttribute("aria-label", note.date);
 
-            const thumb = document.createElement("img");
-            thumb.src = src;
-            thumb.alt = "";
+            const thumb = createMediaElement(src, { thumbnail: true });
             indexButton.append(thumb);
             indexImages.append(indexButton);
           });
@@ -263,6 +313,7 @@
         }
 
         renderCalendar();
+        syncVideoPlayback(activeDate);
       }
 
       function setEntry(date) {
@@ -309,6 +360,7 @@
 
       function setLanding() {
         activeDate = undefined;
+        setLatestContentMonth();
         body.classList.add("is-landing");
         body.classList.remove("has-entry");
         body.classList.remove("is-index");
