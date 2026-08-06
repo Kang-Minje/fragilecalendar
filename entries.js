@@ -208,7 +208,7 @@ globalThis.FRAGILE_ENTRIES = [
   },
   {
     date: "2026-07-01",
-    note: "",
+    note: "eels",
     columns: 1,
     images: [
       "public/images/2026-07-01_01.avif",
@@ -224,7 +224,7 @@ globalThis.FRAGILE_ENTRIES = [
   },
   {
     date: "2026-07-04",
-    note: "",
+    note: "woohyun: elegant but still energetic",
     columns: 1,
     images: [
       "public/images/2026-07-04_01.avif",
@@ -240,7 +240,7 @@ globalThis.FRAGILE_ENTRIES = [
   },
   {
     date: "2026-07-06",
-    note: "",
+    note: "26 frames of yunu",
     columns: 1,
     images: ["public/images/2026-07-06_01.avif"],
   },
@@ -252,7 +252,7 @@ globalThis.FRAGILE_ENTRIES = [
   },
   {
     date: "2026-07-08",
-    note: "",
+    note: "20:48, line 2",
     columns: 1,
     images: [
       "public/images/2026-07-08_01.avif",
@@ -261,7 +261,7 @@ globalThis.FRAGILE_ENTRIES = [
   },
   {
     date: "2026-07-09",
-    note: "",
+    note: "luck or wish",
     columns: 1,
     images: [
       "public/images/2026-07-09_01.avif",
@@ -270,13 +270,14 @@ globalThis.FRAGILE_ENTRIES = [
   },
   {
     date: "2026-07-10",
-    note: "",
+    note: "@arcteryx",
     columns: 1,
     images: ["public/images/2026-07-10_01.avif"],
   },
   {
     date: "2026-07-11",
-    note: "",
+    note:
+      "weird. It suddenly occurs to me that it’s been a long time since I last saw this much 땅 in Seoul. Is land merely a space meant to be filled with something? It’s just 땅, after all.",
     columns: 1,
     images: ["public/images/2026-07-11_01.avif"],
   },
@@ -293,13 +294,13 @@ globalThis.FRAGILE_ENTRIES = [
   },
   {
     date: "2026-07-15",
-    note: "",
+    note: "blind",
     columns: 1,
     images: ["public/images/2026-07-15_01.avif"],
   },
   {
     date: "2026-07-16",
-    note: "",
+    note: "@wentheweather",
     columns: 1,
     images: ["public/images/2026-07-16_01.avif"],
   },
@@ -311,7 +312,7 @@ globalThis.FRAGILE_ENTRIES = [
   },
   {
     date: "2026-07-24",
-    note: "",
+    note: "prayers",
     columns: 1,
     images: [
       "public/images/2026-07-24_01.avif",
@@ -322,7 +323,7 @@ globalThis.FRAGILE_ENTRIES = [
   },
   {
     date: "2026-07-28",
-    note: "",
+    note: "me",
     columns: 1,
     images: [
       "public/images/2026-07-28_01.avif",
@@ -332,7 +333,7 @@ globalThis.FRAGILE_ENTRIES = [
   },
   {
     date: "2026-07-29",
-    note: "",
+    note: "@thisisneverthat",
     columns: 1,
     images: [
       "public/images/2026-07-29_01.avif",
@@ -341,7 +342,7 @@ globalThis.FRAGILE_ENTRIES = [
   },
   {
     date: "2026-07-31",
-    note: "",
+    note: "seoul",
     columns: 1,
     images: [
       "public/images/2026-07-31_01.avif",
@@ -352,7 +353,7 @@ globalThis.FRAGILE_ENTRIES = [
   },
   {
     date: "2026-08-01",
-    note: "",
+    note: "sudden lights and sighs",
     columns: 1,
     images: [
       "public/images/2026-08-01_01.avif",
@@ -361,7 +362,8 @@ globalThis.FRAGILE_ENTRIES = [
   },
   {
     date: "2026-08-02",
-    note: "",
+    note:
+      'it was a motorcycle. A youthful schoolgirl and a man with a bright smile were riding it. "That looks dangerous..."—or at least, that\'s what the old me would have thought.',
     columns: 1,
     images: ["public/images/2026-08-02_01.avif"],
   },
