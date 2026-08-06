@@ -72,6 +72,7 @@
       let activeDate;
       let calendarDate = new Date(2026, 5, 1);
       let observer;
+      let mediaObserver;
       const videoExtensions = new Set(["mov", "mp4", "m4v", "webm"]);
 
       const monthNames = [
@@ -155,24 +156,55 @@
         return videoExtensions.has(extension) ? "video" : "image";
       }
 
+      function thumbnailSrc(src) {
+        return src
+          .replace("/images/", "/thumbs/")
+          .replace(/\.[^.]+$/, ".avif");
+      }
+
+      function loadMedia(element) {
+        if (element.dataset.loaded || !element.dataset.src) {
+          return;
+        }
+
+        element.src = element.dataset.src;
+        element.dataset.loaded = "true";
+      }
+
+      function loadEntryMedia(date) {
+        document
+          .querySelector(`[data-entry="${date}"]`)
+          ?.querySelectorAll("[data-src]")
+          .forEach(loadMedia);
+      }
+
       function createMediaElement(src, options = {}) {
         const type = mediaType(src);
         const element = document.createElement(type === "video" ? "video" : "img");
 
         if (type === "video") {
-          element.src = src;
+          if (options.thumbnail) {
+            element.src = src;
+          } else {
+            element.dataset.src = src;
+          }
           element.muted = true;
           element.playsInline = true;
           element.controls = !options.thumbnail;
-          element.preload = options.thumbnail ? "metadata" : "auto";
+          element.preload = options.thumbnail ? "metadata" : "none";
 
           if (!options.thumbnail) {
             element.dataset.autoplayVideo = "";
           }
         } else {
-          element.src = src;
+          if (options.thumbnail) {
+            element.src = thumbnailSrc(src);
+          } else {
+            element.dataset.src = src;
+          }
           element.alt = "";
-          element.loading = options.thumbnail ? "lazy" : "eager";
+          element.decoding = "async";
+          element.loading = "lazy";
         }
 
         return element;
@@ -183,10 +215,26 @@
           const shouldPlay = video.closest("[data-entry]")?.dataset.entry === activeEntry;
 
           if (shouldPlay) {
+            loadMedia(video);
             video.play().catch(() => {});
           } else {
             video.pause();
           }
+        });
+      }
+
+      function jumpToElement(element) {
+        const root = document.documentElement;
+        const previousScrollBehavior = root.style.scrollBehavior;
+
+        root.style.scrollBehavior = "auto";
+        element?.scrollIntoView({
+          behavior: "auto",
+          block: "start",
+        });
+
+        requestAnimationFrame(() => {
+          root.style.scrollBehavior = previousScrollBehavior;
         });
       }
 
@@ -277,7 +325,33 @@
 
           indexRow.append(indexImages);
           indexView.append(indexRow);
-          stage.append(section);
+        stage.append(section);
+        });
+      }
+
+      function observeMedia() {
+        if (mediaObserver) {
+          mediaObserver.disconnect();
+        }
+
+        mediaObserver = new IntersectionObserver(
+          (items) => {
+            items.forEach((item) => {
+              if (item.isIntersecting) {
+                loadMedia(item.target);
+                mediaObserver.unobserve(item.target);
+              }
+            });
+          },
+          {
+            root: null,
+            rootMargin: "1200px 0px",
+            threshold: 0,
+          },
+        );
+
+        document.querySelectorAll("[data-src]").forEach((element) => {
+          mediaObserver.observe(element);
         });
       }
 
@@ -312,6 +386,10 @@
           }
         }
 
+        if (note) {
+          loadEntryMedia(date);
+        }
+
         renderCalendar();
         syncVideoPlayback(activeDate);
       }
@@ -325,10 +403,7 @@
           return;
         }
 
-        document.querySelector(`[data-entry="${date}"]`)?.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
+        jumpToElement(document.querySelector(`[data-entry="${date}"]`));
       }
 
       function syncEntryFromScroll() {
@@ -412,10 +487,7 @@
         if (thumb) {
           body.classList.remove("is-index");
           updateEntryState(thumb.dataset.date);
-          document.getElementById(thumb.dataset.imageTarget)?.scrollIntoView({
-            behavior: "smooth",
-            block: "start",
-          });
+          jumpToElement(document.getElementById(thumb.dataset.imageTarget));
         }
       });
 
@@ -425,6 +497,7 @@
       window.visualViewport?.addEventListener("resize", updateStableViewportHeight);
 
       renderEntries();
+      observeMedia();
       renderCalendar();
       syncEntryFromScroll();
     </script>
