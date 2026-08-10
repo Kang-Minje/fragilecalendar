@@ -55,6 +55,7 @@
     <section class="index-view" aria-label="image index" data-index-view></section>
 
     <script src="entries.js"></script>
+    <script src="media.js"></script>
     <script>
       const body = document.body;
       const home = document.querySelector("[data-home]");
@@ -74,6 +75,7 @@
       let observer;
       let mediaObserver;
       const videoExtensions = new Set(["mov", "mp4", "m4v", "webm"]);
+      const mediaMeta = globalThis.FRAGILE_MEDIA || {};
 
       const monthNames = [
         "January",
@@ -162,6 +164,18 @@
           .replace(/\.[^.]+$/, ".avif");
       }
 
+      function applyMediaShape(element, src) {
+        const meta = mediaMeta[src];
+
+        if (!meta?.width || !meta?.height) {
+          return;
+        }
+
+        element.width = meta.width;
+        element.height = meta.height;
+        element.style.aspectRatio = `${meta.width} / ${meta.height}`;
+      }
+
       function loadMedia(element) {
         if (element.dataset.loaded || !element.dataset.src) {
           return;
@@ -181,6 +195,7 @@
       function createMediaElement(src, options = {}) {
         const type = mediaType(src);
         const element = document.createElement(type === "video" ? "video" : "img");
+        applyMediaShape(element, src);
 
         if (type === "video") {
           if (options.thumbnail) {
@@ -200,6 +215,7 @@
           if (options.thumbnail) {
             element.src = thumbnailSrc(src);
           } else {
+            element.src = thumbnailSrc(src);
             element.dataset.src = src;
           }
           element.alt = "";

@@ -379,4 +379,13 @@ globalThis.FRAGILE_ENTRIES = [
     columns: 1,
     images: ["public/images/2026-08-04_01.avif"],
   },
+  {
+    date: "2026-08-08",
+    note: "son",
+    columns: 1,
+    images: [
+      "public/images/2026-08-08_01.jpg",
+      "public/images/2026-08-08_02.jpg",
+    ],
+  },
 ];
