@@ -401,7 +401,7 @@ globalThis.FRAGILE_ENTRIES = [
   },
   {
     date: "2026-09-04",
-    note: "hazy contructions",
+    note: "hazy constructions",
     columns: 1,
     images: [
       "public/images/2026-09-04_01.avif",
