@@ -388,4 +388,75 @@ globalThis.FRAGILE_ENTRIES = [
       "public/images/2026-08-08_02.jpg",
     ],
   },
+  {
+    date: "2026-08-28",
+    note:
+      "as time passed, the incident remained only as a trace, and the emotions gradually softened. what i see now are only lines, shapes and colours.",
+    columns: 1,
+    images: [
+      "public/images/2026-08-28_01.avif",
+      "public/images/2026-08-28_02.avif",
+      "public/images/2026-08-28_03.avif",
+    ],
+  },
+  {
+    date: "2026-09-04",
+    note: "hazy contructions",
+    columns: 1,
+    images: [
+      "public/images/2026-09-04_01.avif",
+      "public/images/2026-09-04_02.avif",
+    ],
+  },
+  {
+    date: "2026-09-16",
+    note: "tear",
+    columns: 1,
+    images: [
+      "public/images/2026-09-16_01.avif",
+      "public/images/2026-09-16_02.avif",
+    ],
+  },
+  {
+    date: "2026-09-24",
+    note: "crosses",
+    columns: 1,
+    images: ["public/images/2026-09-24_01.avif"],
+  },
+  {
+    date: "2026-09-30",
+    note: "+5",
+    columns: 1,
+    images: ["public/images/2026-09-30_01.avif"],
+  },
+  {
+    date: "2026-10-01",
+    note: "one",
+    columns: 1,
+    images: ["public/images/2026-10-01_01.avif"],
+  },
+  {
+    date: "2026-10-17",
+    note: "lee in seoul",
+    columns: 1,
+    images: [
+      "public/images/2026-10-17_01.avif",
+      "public/images/2026-10-17_02.avif",
+    ],
+  },
+  {
+    date: "2026-10-18",
+    note: "",
+    columns: 1,
+    images: ["public/images/2026-10-18_01.avif"],
+  },
+  {
+    date: "2026-10-22",
+    note: "breathing",
+    columns: 1,
+    images: [
+      "public/images/2026-10-22_01.avif",
+      "public/images/2026-10-22_02.avif",
+    ],
+  },
 ];

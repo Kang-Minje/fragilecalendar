@@ -378,5 +378,65 @@ globalThis.FRAGILE_MEDIA = {
   "public/images/2026-08-08_02.jpg": {
     "width": 2400,
     "height": 2400
+  },
+  "public/images/2026-08-28_01.avif": {
+    "width": 1024,
+    "height": 1453
+  },
+  "public/images/2026-08-28_02.avif": {
+    "width": 1024,
+    "height": 1453
+  },
+  "public/images/2026-08-28_03.avif": {
+    "width": 1453,
+    "height": 1024
+  },
+  "public/images/2026-09-04_01.avif": {
+    "width": 1024,
+    "height": 1453
+  },
+  "public/images/2026-09-04_02.avif": {
+    "width": 1453,
+    "height": 1024
+  },
+  "public/images/2026-09-16_01.avif": {
+    "width": 1453,
+    "height": 1024
+  },
+  "public/images/2026-09-16_02.avif": {
+    "width": 1024,
+    "height": 1453
+  },
+  "public/images/2026-09-24_01.avif": {
+    "width": 1024,
+    "height": 1453
+  },
+  "public/images/2026-09-30_01.avif": {
+    "width": 1024,
+    "height": 1453
+  },
+  "public/images/2026-10-01_01.avif": {
+    "width": 353,
+    "height": 470
+  },
+  "public/images/2026-10-17_01.avif": {
+    "width": 1024,
+    "height": 1453
+  },
+  "public/images/2026-10-17_02.avif": {
+    "width": 1024,
+    "height": 1453
+  },
+  "public/images/2026-10-18_01.avif": {
+    "width": 1453,
+    "height": 1024
+  },
+  "public/images/2026-10-22_01.avif": {
+    "width": 1024,
+    "height": 1453
+  },
+  "public/images/2026-10-22_02.avif": {
+    "width": 1024,
+    "height": 1453
   }
 };
